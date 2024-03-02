@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'CMUTypewriter';
+  src: url('/fonts/CMUTypewriter-Regular.woff2') format('woff2'),
+       url('/fonts/CMUTypewriter-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+  transform: scaleY(1.5);
+}
+
+
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -17,6 +28,7 @@
 }
 
 body {
+  font-family: 'CMUTypewriter', sans-serif;
   color: rgb(var(--foreground-rgb));
   background: black; /* Ensures the body background is black */
   margin: 0;
@@ -38,3 +50,34 @@ body {
   box-sizing: border-box;
 }
 
+.typewriter {
+  /* color: #00FF46; */
+  font-family: 'CMUTypewriter', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: scaleY(1.5);
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 5px;
+  width: 10px;
+  height: 12px;
+  animation: blink 2s step-end infinite;
+  margin-bottom: 0;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.typewriter-container {
+  position: absolute;
+  bottom: 25%;
+  width: 100%;
+  z-index: 10;
+  text-align: center;
+}
