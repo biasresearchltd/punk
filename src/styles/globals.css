@@ -64,14 +64,17 @@ body {
   display: inline-block;
   margin-left: 5px;
   width: 10px;
-  height: 12px;
-  animation: blink 2s step-end infinite;
-  margin-bottom: 0;
+  height: 11px;
+  animation: blink 1s step-end infinite;
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .typewriter-container {

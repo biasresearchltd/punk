@@ -9,7 +9,7 @@ interface TypewriterProps {
 const Typewriter: React.FC<TypewriterProps> = ({
   texts,
   colors,
-  blinkingTimesBeforeStart = 3,
+  blinkingTimesBeforeStart = 2,
 }) => {
   const [typedText, setTypedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);

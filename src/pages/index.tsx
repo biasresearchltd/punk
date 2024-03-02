@@ -6,7 +6,7 @@ import VideoLoop from '../components/VideoLoop';
 const Home: NextPage = () => {
   return (
 	<div>
-	  <VideoLoop src="../media/SmallPunk.mp4" />
+	  <VideoLoop src="../media/pe24.mp4" />
 		<div className="typewriter-container">
 			<Typewriter 
 				texts={[
