@@ -55,7 +55,7 @@ body {
   font-family: 'CMUTypewriter', monospace;
   white-space: nowrap;
   overflow: hidden;
-  transform: scaleY(1.5);
+  transform: scaleY(1.666);
   cursor: pointer;
   text-transform: uppercase;
 }
@@ -79,7 +79,7 @@ body {
 
 .typewriter-container {
   position: absolute;
-  bottom: 25%;
+  bottom: 20%;
   width: 100%;
   z-index: 10;
   text-align: center;
