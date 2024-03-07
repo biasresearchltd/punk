@@ -8,7 +8,7 @@ const Home: NextPage = () => {
 		<div>
 			<div className="typewriter-container-top">
 				<Typewriter 
-					multiColor="cycle"
+					
 					texts={[
 						"Punk"
 					]}
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
 			<VideoLoop src="../media/gfy.mp4" />
 			<div className="typewriter-container-bottom">
 				<Typewriter 
-					multiColor="none"
+					
 					texts={[
 						"Everything will be okaos",
 						"Free your punk",
