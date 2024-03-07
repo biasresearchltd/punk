@@ -4,18 +4,20 @@ interface TypewriterProps {
   texts: string[];
   colors: string[];
   blinkingTimesBeforeStart?: number;
+  multiColor?: 'none' | 'cycle' | 'gridFill'; // Flag to activate multicolor mode
 }
 
 const Typewriter: React.FC<TypewriterProps> = ({
   texts,
   colors,
-  blinkingTimesBeforeStart = 3,
+  blinkingTimesBeforeStart = 2,
+  multiColor = 'none', // Default to 'none'
 }) => {
-  const [typedText, setTypedText] = useState('');
+  const [typedText, setTypedText] = useState<string[]>([]);
   const [isTyping, setIsTyping] = useState(true);
   const [currentText, setCurrentText] = useState('');
-  const [currentColor, setCurrentColor] = useState('');
   const [showCursor, setShowCursor] = useState(true);
+  const [currentColor, setCurrentColor] = useState<string>('');
 
   const selectRandomText = () => texts[Math.floor(Math.random() * texts.length)];
   const selectRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
@@ -23,17 +25,16 @@ const Typewriter: React.FC<TypewriterProps> = ({
   useEffect(() => {
 	const blinkTimeout = setTimeout(() => {
 	  setIsTyping(true);
-	}, blinkingTimesBeforeStart * 1000); // Delay for initial blinks
+	}, blinkingTimesBeforeStart * 1000);
 
 	return () => clearTimeout(blinkTimeout);
   }, [blinkingTimesBeforeStart]);
 
   useEffect(() => {
 	if (isTyping && typedText.length < currentText.length) {
-	  // Introduce randomness in typing speed
-	  const randomSpeed = Math.random() * (200 - 50) + 50; // Between 50ms and 200ms for example
+	  const randomSpeed = Math.random() * (224 - 10) + 50; 
 	  const timeoutId = setTimeout(() => {
-		setTypedText(currentText.substring(0, typedText.length + 1));
+		setTypedText(currentText.substring(0, typedText.length + 1).split(''));
 	  }, randomSpeed);
 	  return () => clearTimeout(timeoutId);
 	} else if (isTyping && typedText.length === currentText.length) {
@@ -43,24 +44,43 @@ const Typewriter: React.FC<TypewriterProps> = ({
 
   const resetAndTypeNewText = () => {
 	setIsTyping(false);
-	setTypedText('');
+	setTypedText([]);
 	setShowCursor(true);
-	let newText = selectRandomText();
-	setCurrentText(newText);
-	setCurrentColor(selectRandomColor());
+	setCurrentText(selectRandomText());
+	setCurrentColor(selectRandomColor()); // Select a new random color for the next text
 	setTimeout(() => {
 	  setIsTyping(true);
 	}, blinkingTimesBeforeStart * 1000);
   };
 
   useEffect(() => {
-	resetAndTypeNewText(); // Initialize on mount
+	resetAndTypeNewText();
   }, []);
 
+  // Adjusted function to render text based on the current mode
+  const renderText = () => {
+	if (multiColor === 'none') {
+	  return <span style={{ color: currentColor }}>{typedText.join('')}</span>;
+	} else {
+	  return renderTextWithColors();
+	}
+  };
+
+  // Function to render each character with cycling color
+  const renderTextWithColors = () => {
+	return typedText.map((char, index) => (
+	  <span key={index} style={{ color: colors[index % colors.length] }}>
+		{char}
+	  </span>
+	));
+  };
+
   return (
-	<div className="typewriter" onClick={resetAndTypeNewText} style={{ color: currentColor }}>
-	  {typedText}
-	  {showCursor && <span className="cursor" style={{ backgroundColor: currentColor }} />}
+	<div className="typewriter" onClick={resetAndTypeNewText}>
+	  {renderText()}
+	  {showCursor && (
+		<span className="cursor" style={{ backgroundColor: 'currentColor' }}></span>
+	  )}
 	</div>
   );
 };
