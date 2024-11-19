@@ -12,7 +12,7 @@ const VideoLoop: React.FC<VideoLoopProps> = ({ src }) => {
 		loop
 		muted
 		playsInline
-		controls
+		controls={false}
 		autoPlay
 		className="video"
 	  >
