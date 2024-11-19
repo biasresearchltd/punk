@@ -23,7 +23,7 @@ const Home: NextPage = () => {
 					blinkingTimesBeforeStart={3}
 				/>
 			</div>
-			<VideoLoop src="../media/punkunix.mp4" />
+			<VideoLoop src="../media/Render28.mp4" />
 			<div className="typewriter-container-bottom">
 				<Typewriter 
 					

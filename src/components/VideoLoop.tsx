@@ -1,12 +1,14 @@
 import React from 'react';
 
-const VideoLoop = () => {
-  const videoFile = 'Render28.mp4'; // Single video file
+interface VideoLoopProps {
+  src: string; // Define the expected prop type
+}
 
+const VideoLoop: React.FC<VideoLoopProps> = ({ src }) => {
   return (
 	<div className="video-container">
 	  <video
-		src={`../media/${videoFile}`}
+		src={src} // Use the dynamic `src` prop
 		loop
 		muted
 		playsInline
@@ -25,14 +27,13 @@ const VideoLoop = () => {
 		  position: relative;
 		  overflow: hidden;
 		}
-		
 		.video {
-		  position: absolute; /* Expand to fill container */
+		  position: absolute;
 		  top: 0;
 		  left: 0;
 		  width: 100%;
 		  height: 100%;
-		  object-fit: cover; /* Ensures the video fills the space proportionally */
+		  object-fit: cover; /* Fills the viewport while maintaining aspect ratio */
 		}
 	  `}</style>
 	</div>
