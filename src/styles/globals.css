@@ -27,13 +27,23 @@
   }
 }
 
+html {
+  margin: 0;
+  padding: 0;
+  background: black;
+  height: 100%;
+  overflow: hidden;
+}
+
 body {
   font-family: 'CMUTypewriter', sans-serif;
   color: rgb(var(--foreground-rgb));
-  background: black; /* Ensures the body background is black */
+  background: url('/media/poster.jpg') center/cover no-repeat black;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  height: 100%;
+  overflow: hidden;
 }
 
 @layer utilities {
@@ -97,8 +107,8 @@ body {
 
 
 .typewriter-container-top {
-  position: absolute;
-  top: 6%;
+  position: fixed;
+  top: calc(6% + env(safe-area-inset-top, 0px));
   width: 100%;
   z-index: 10;
   text-align: center;
@@ -111,8 +121,8 @@ body {
 }
 
 .typewriter-container-bottom {
-  position: absolute;
-  bottom: 6%;
+  position: fixed;
+  bottom: calc(6% + env(safe-area-inset-bottom, 0px));
   width: 100%;
   z-index: 10;
   text-align: center;
@@ -148,8 +158,8 @@ body {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(1px) saturate(1.2);
-  -webkit-backdrop-filter: blur(1px) saturate(1.2);
+  backdrop-filter: blur(4px) saturate(1.2);
+  -webkit-backdrop-filter: blur(4px) saturate(1.2);
   border-radius: 34px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow:
@@ -216,4 +226,40 @@ body {
   62% { transform: translate(10%, -10%); }
   75% { transform: translate(-3%, 15%); }
   87% { transform: translate(8%, -6%); }
+}
+
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .typewriter {
+    font-size: 14px;
+    text-shadow:
+      0 0 4px currentColor,
+      0 0 12px currentColor,
+      0 2px 6px currentColor,
+      0 -2px 6px currentColor;
+  }
+
+  .cursor {
+    width: 9px;
+    height: 11px;
+    margin-top: -2px;
+  }
+
+  .typewriter-container-top {
+    top: calc(4% + env(safe-area-inset-top, 0px));
+  }
+
+  .typewriter-container-bottom {
+    bottom: calc(4% + env(safe-area-inset-bottom, 0px));
+  }
+
+  .typewriter-container-bottom .typewriter {
+    width: 90vw;
+    padding: 14px 20px;
+  }
+
+  .typewriter-container-bottom .typewriter::before {
+    border-radius: 22px;
+  }
 }

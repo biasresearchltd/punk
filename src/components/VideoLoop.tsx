@@ -20,12 +20,13 @@ const VideoLoop: React.FC<VideoLoopProps> = ({ src }) => {
 	  </video>
 	  <style jsx>{`
 		.video-container {
-		  display: flex;
-		  justify-content: center;
-		  align-items: center;
-		  height: 100vh; /* Full viewport height */
-		  position: relative;
+		  position: fixed;
+		  top: -50px;
+		  left: -50px;
+		  right: -50px;
+		  bottom: -50px;
 		  overflow: hidden;
+		  z-index: 0;
 		}
 		.video {
 		  position: absolute;
@@ -33,7 +34,7 @@ const VideoLoop: React.FC<VideoLoopProps> = ({ src }) => {
 		  left: 0;
 		  width: 100%;
 		  height: 100%;
-		  object-fit: cover; /* Fills the viewport while maintaining aspect ratio */
+		  object-fit: cover;
 		}
 	  `}</style>
 	</div>

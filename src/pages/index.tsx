@@ -7,10 +7,10 @@ import CSSGrainOverlay from '../components/CSSGrainOverlay';
 
 const Home: NextPage = () => {
 	return (
-		<div>
+		<>
+			<VideoLoop src="/media/longdesktopglow.mp4" />
 			<div className="typewriter-container-top">
 				<Typewriter
-
 					texts={[
 						"Punk"
 					]}
@@ -25,7 +25,6 @@ const Home: NextPage = () => {
 					blinkingTimesBeforeStart={3}
 				/>
 			</div>
-			<VideoLoop src="../media/longdesktopglow.mp4" />
 			<div className="typewriter-container-bottom">
 				<Typewriter2
 					texts={[
@@ -80,7 +79,7 @@ const Home: NextPage = () => {
 				/>
 			</div>
 		{/* <CSSGrainOverlay /> */}
-		</div>
+		</>
 	);
 };
 
