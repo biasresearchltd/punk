@@ -22,6 +22,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
   const [showCursor, setShowCursor] = useState(true);
   const [currentColor, setCurrentColor] = useState<string>('');
   const [doneTyping, setDoneTyping] = useState(false);
+  const [cursorColorIndex, setCursorColorIndex] = useState(0);
   const refreshTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   const selectRandomText = () => texts[Math.floor(Math.random() * texts.length)];
@@ -71,7 +72,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
   // Erasing effect
   useEffect(() => {
 	if (isErasing && typedText.length > 0) {
-	  const eraseSpeed = Math.random() * (80 - 30) + 30;
+	  const eraseSpeed = Math.random() * (180 - 20) + 20;
 	  const timeoutId = setTimeout(() => {
 		setTypedText(typedText.slice(0, -1));
 	  }, eraseSpeed);
@@ -93,6 +94,14 @@ const Typewriter: React.FC<TypewriterProps> = ({
 	  };
 	}
   }, [refreshInterval, doneTyping, startErasing]);
+
+  // Cursor color cycling
+  useEffect(() => {
+	const interval = setInterval(() => {
+	  setCursorColorIndex(prev => (prev + 1) % colors.length);
+	}, 1000);
+	return () => clearInterval(interval);
+  }, [colors.length]);
 
   useEffect(() => {
 	resetAndTypeNewText();
@@ -136,8 +145,14 @@ const Typewriter: React.FC<TypewriterProps> = ({
 	<div className="typewriter" onClick={() => isErasing ? null : startErasing()}>
 	  {renderText()}
 	  {showCursor && (
-		<span className="cursor" style={{ backgroundColor: 'currentColor' }}></span>
+		<span className="cursor" style={{ backgroundColor: colors[cursorColorIndex] }}></span>
 	  )}
+	  <div className="typewriter-ghost">
+		{renderText()}
+		{showCursor && (
+		  <span className="cursor" style={{ backgroundColor: colors[cursorColorIndex] }}></span>
+		)}
+	  </div>
 	</div>
   );
 };

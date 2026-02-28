@@ -16,6 +16,7 @@ const Typewriter: React.FC<TypewriterProps> = ({
   const [currentText, setCurrentText] = useState('');
   const [currentColor, setCurrentColor] = useState('');
   const [showCursor, setShowCursor] = useState(true);
+  const [colorIndex, setColorIndex] = useState(0);
 
   const selectRandomText = () => texts[Math.floor(Math.random() * texts.length)];
   const selectRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
@@ -53,6 +54,13 @@ const Typewriter: React.FC<TypewriterProps> = ({
   };
 
   useEffect(() => {
+	const interval = setInterval(() => {
+	  setColorIndex(prev => (prev + 1) % colors.length);
+	}, 1000);
+	return () => clearInterval(interval);
+  }, [colors.length]);
+
+  useEffect(() => {
 	resetAndTypeNewText();
   }, []);
 
@@ -63,14 +71,29 @@ const Typewriter: React.FC<TypewriterProps> = ({
 		  key={index}
 		  className="typewriter-char"
 		  style={{
-			color: currentColor,
+			color: colors[colorIndex],
 			animationDelay: `${index * 0.08}s`,
 		  }}
 		>
 		  {char === ' ' ? '\u00A0' : char}
 		</span>
 	  ))}
-	  {showCursor && <span className="cursor" style={{ backgroundColor: currentColor }} />}
+	  {showCursor && <span className="cursor" style={{ backgroundColor: colors[colorIndex] }} />}
+	  <div className="typewriter-ghost">
+		{typedText.split('').map((char, index) => (
+		  <span
+			key={index}
+			className="typewriter-char"
+			style={{
+			  color: colors[colorIndex],
+			  animationDelay: `${index * 0.08}s`,
+			}}
+		  >
+			{char === ' ' ? '\u00A0' : char}
+		  </span>
+		))}
+		{showCursor && <span className="cursor" style={{ backgroundColor: colors[colorIndex] }} />}
+	  </div>
 	</div>
   );
 };
