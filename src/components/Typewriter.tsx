@@ -23,15 +23,14 @@ const Typewriter: React.FC<TypewriterProps> = ({
   useEffect(() => {
 	const blinkTimeout = setTimeout(() => {
 	  setIsTyping(true);
-	}, blinkingTimesBeforeStart * 1000); // Delay for initial blinks
+	}, blinkingTimesBeforeStart * 1000);
 
 	return () => clearTimeout(blinkTimeout);
   }, [blinkingTimesBeforeStart]);
 
   useEffect(() => {
 	if (isTyping && typedText.length < currentText.length) {
-	  // Introduce randomness in typing speed
-	  const randomSpeed = Math.random() * (200 - 50) + 50; // Between 50ms and 200ms for example
+	  const randomSpeed = Math.random() * (200 - 50) + 50;
 	  const timeoutId = setTimeout(() => {
 		setTypedText(currentText.substring(0, typedText.length + 1));
 	  }, randomSpeed);
@@ -54,12 +53,23 @@ const Typewriter: React.FC<TypewriterProps> = ({
   };
 
   useEffect(() => {
-	resetAndTypeNewText(); // Initialize on mount
+	resetAndTypeNewText();
   }, []);
 
   return (
-	<div className="typewriter" onClick={resetAndTypeNewText} style={{ color: currentColor }}>
-	  {typedText}
+	<div className="typewriter" onClick={resetAndTypeNewText}>
+	  {typedText.split('').map((char, index) => (
+		<span
+		  key={index}
+		  className="typewriter-char"
+		  style={{
+			color: currentColor,
+			animationDelay: `${index * 0.08}s`,
+		  }}
+		>
+		  {char === ' ' ? '\u00A0' : char}
+		</span>
+	  ))}
 	  {showCursor && <span className="cursor" style={{ backgroundColor: currentColor }} />}
 	</div>
   );
